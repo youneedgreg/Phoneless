@@ -1,6 +1,10 @@
 import { SAMPLE, SAMPLE_NAME, evaluate } from '../core';
 import type { ScreenProps } from './App';
 
+// Gzipped size of the whole build, rounded up, from `npm run build` (TOTAL line).
+// The e2e checks it against the real dist/ so it cannot go stale.
+const APP_KB = 24;
+
 export function Home({ saved, update }: ScreenProps) {
   const trySample = () => {
     const ev = evaluate(SAMPLE);
@@ -19,6 +23,7 @@ export function Home({ saved, update }: ScreenProps) {
         <button className="btn" onClick={trySample}>Try with a sample person</button>
         <a className="btn danger" href="#/emergency">My phone is gone now</a>
       </div>
+      <p className="muted size-line">The whole app is {APP_KB} KB, so it loads on a weak signal and keeps working offline once opened.</p>
       <h2>Try it in two minutes</h2>
       <ol>
         <li>Choose <strong>Try with a sample person</strong>. {SAMPLE_NAME} can do 1 of 5 first-hour actions.</li>

@@ -2,7 +2,9 @@
 // a go-link opens the right numbers offline, and no request ever leaves this site.
 // Run with `npm run e2e`. Set CHROME_PATH if Chrome is not found.
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { basename, join } from 'node:path';
+import { gzipSync } from 'node:zlib';
 import { chromium } from 'playwright-core';
 
 const PORT = 4173;
@@ -83,6 +85,16 @@ check('copy button says Copied', (await page.getByRole('button', { name: 'Copied
 await page.goto(`${BASE}/#/emergency`);
 await page.waitForSelector('ol.steps');
 check('no not-ready box at 5 of 5', (await page.locator('.not-ready').count()) === 0);
+
+// 3a3. The size line on Home matches the real build
+let gzTotal = 0;
+const walk = (dir) => readdirSync(dir).flatMap((n) => { const f = join(dir, n); return statSync(f).isDirectory() ? walk(f) : [f]; });
+for (const f of walk(join(import.meta.dirname, '..', 'dist')).filter((f) => !f.endsWith('sw.js') && !basename(f).startsWith('.'))) gzTotal += gzipSync(readFileSync(f)).length;
+const realKb = Math.ceil(gzTotal / 1024);
+await page.goto(`${BASE}/#/`);
+await page.waitForSelector('.size-line');
+const sizeText = await page.textContent('.size-line');
+check('home size line matches the build', sizeText.includes(`The whole app is ${realKb} KB`), `${sizeText.slice(0, 30)}… build is ${(gzTotal / 1024).toFixed(1)} KB gz`);
 
 // 3b. The wallet card is built from the drill
 await page.goto(`${BASE}/#/card`);
