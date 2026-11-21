@@ -81,7 +81,10 @@ export function About() {
             <tr><th scope="row">Whole loop in a browser (24 checks)</th><td>Pass in Chrome, including the offline reload and "no request left this site"</td></tr>
             <tr><th scope="row">Nothing leaves the site, live</th><td>Pass — on the deployed site, only same-origin requests appear in the Network tab</td></tr>
             <tr><th scope="row">Offline after one visit</th><td>Pass in Chrome; a service worker caches every file</td></tr>
-            <tr><th scope="row">Real phone: tap-to-call, offline, screen reader</th><td>Not yet run on a physical phone</td></tr>
+            <tr><th scope="row">Real phone: plan code on a phone that never opened the site, tap-to-call, copy link, offline</th><td>Pass on a Samsung Galaxy A06, Android 16, Chrome</td></tr>
+            <tr><th scope="row">Android settings steps followed on that phone</th><td>Two steps had the wrong menu names for Samsung; both fixed</td></tr>
+            <tr><th scope="row">Printed card, A4 at 100%</th><td>Pass: each face 85.6 × 54 mm, nothing cut off, also with five providers</td></tr>
+            <tr><th scope="row">Screen readers (VoiceOver, TalkBack)</th><td>Not yet run</td></tr>
             <tr><th scope="row">People taking the drill unaided</th><td>Not yet run</td></tr>
           </tbody>
         </table>
