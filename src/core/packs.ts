@@ -5,6 +5,8 @@ import type { Pack, Provider } from './types';
 // evidence 'excerpt' = the official page was read as a search-engine excerpt because a direct fetch failed.
 // Re-check every entry before you ship (Day-1 check 3) and bump `checked`.
 const CHECKED = '2026-11-14';
+// Re-opened in a browser on 21 Nov 2026 (Day-1 check 3): the six entries that were excerpts.
+const RECHECKED = '2026-11-21';
 
 const ke: Provider[] = [
   {
@@ -29,13 +31,13 @@ const ke: Provider[] = [
     anyLine: [{ label: 'From any network', display: '0733 100 100', tel: '+254733100100' }],
     callsFrom: '0733 100 000',
     hours: '24 hours',
-    source: { url: 'https://www.airtelkenya.com/ke/about/contact-us', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://www.airtelkenya.com/ke/about/contact-us', checked: RECHECKED, evidence: 'opened' },
   },
   {
     id: 'telkom', code: 'tel', kind: 'carrier', name: 'Telkom', wallet: 'T-kash',
     ownLine: [{ label: 'From a Telkom line', display: '100', tel: '100' }],
     anyLine: [{ label: 'From any network', display: '020 222 1000', tel: '+254202221000' }],
-    source: { url: 'https://telkom.co.ke/help-center/contact-us/', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://telkom.co.ke/help-center/contact-us/', checked: RECHECKED, evidence: 'opened' },
   },
   {
     id: 'equity', code: 'eq', kind: 'bank', name: 'Equity Bank',
@@ -52,8 +54,7 @@ const ke: Provider[] = [
       { label: 'Contact centre', display: '0732 187 000', tel: '+254732187000' },
     ],
     callsFrom: '0711 070 000',
-    hours: '24 hours',
-    source: { url: 'https://ke.kcbgroup.com/support', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://ke.kcbgroup.com/talk-to-us', checked: RECHECKED, evidence: 'opened' },
   },
   {
     id: 'coop', code: 'coop', kind: 'bank', name: 'Co-operative Bank',
@@ -71,7 +72,7 @@ const ke: Provider[] = [
       { label: 'Contact centre', display: '0732 130 120', tel: '+254732130120' },
       { label: 'Landline', display: '020 390 0000', tel: '+254203900000' },
     ],
-    source: { url: 'https://www.absabank.co.ke/talk-to-us/', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://www.absabank.co.ke/talk-to-us/', checked: RECHECKED, evidence: 'opened' },
   },
   {
     id: 'ncba', code: 'ncba', kind: 'bank', name: 'NCBA Bank',
@@ -80,7 +81,7 @@ const ke: Provider[] = [
       { label: 'Contact centre', display: '0711 056 444', tel: '+254711056444' },
       { label: 'Contact centre', display: '0732 156 444', tel: '+254732156444' },
     ],
-    source: { url: 'https://ncbagroup.com/ke/talk-to-us/', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://ncbagroup.com/ke/talk-to-us/', checked: RECHECKED, evidence: 'opened' },
   },
   {
     id: 'stanbic', code: 'stan', kind: 'bank', name: 'Stanbic Bank',
@@ -88,7 +89,7 @@ const ke: Provider[] = [
       { label: 'Customer care', display: '0711 068 888', tel: '+254711068888' },
       { label: 'Customer care', display: '020 326 8888', tel: '+254203268888' },
     ],
-    source: { url: 'https://www.stanbicbank.co.ke/kenya/personal/contact-us', checked: CHECKED, evidence: 'excerpt' },
+    source: { url: 'https://www.stanbicbank.co.ke/kenya/personal/contact-us', checked: RECHECKED, evidence: 'opened' },
   },
 ];
 
