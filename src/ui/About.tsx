@@ -94,7 +94,7 @@ export function About() {
       <ul>
         <li>Built with <a href="https://preactjs.com" target="_blank" rel="noreferrer">Preact</a>, <a href="https://vite.dev" target="_blank" rel="noreferrer">Vite</a>, Vitest and playwright-core. No server, no analytics, no third-party fonts or scripts.</li>
         <li>Numbers from the official pages of Safaricom, Airtel, Telkom, Equity, KCB, Co-operative, Absa, NCBA and Stanbic, and the National Police Service (links above). Device and account steps from Google, Apple and WhatsApp help pages.</li>
-        <li>AI assistance: Claude (Anthropic) helped research the problem, design the drill rules and write the first version of the code. The wallet card and this page were written by me on top of that.</li>
+        <li>AI assistance: Claude (Anthropic) helped research the problem and the hackathons, design the drill rules, write the code (including the wallet card and this page) and re-check the provider numbers. I decided what Phoneless does and leaves out, tested it on my own phone and on paper, and approved every change before it went live.</li>
         <li>The sample person is made up. No real name, number or ID appears anywhere in Phoneless.</li>
         <li>Licensed under MIT.</li>
       </ul>
