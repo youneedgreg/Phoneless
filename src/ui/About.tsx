@@ -78,7 +78,7 @@ export function About() {
           </thead>
           <tbody>
             <tr><th scope="row">Core logic (46 unit tests)</th><td>Pass, headless on Node</td></tr>
-            <tr><th scope="row">Whole loop in a browser (19 checks)</th><td>Pass in Chrome, including the offline reload and "no request left this site"</td></tr>
+            <tr><th scope="row">Whole loop in a browser (24 checks)</th><td>Pass in Chrome, including the offline reload and "no request left this site"</td></tr>
             <tr><th scope="row">Nothing leaves the site, live</th><td>Pass — on the deployed site, only same-origin requests appear in the Network tab</td></tr>
             <tr><th scope="row">Offline after one visit</th><td>Pass in Chrome; a service worker caches every file</td></tr>
             <tr><th scope="row">Real phone: tap-to-call, offline, screen reader</th><td>Not yet run on a physical phone</td></tr>
