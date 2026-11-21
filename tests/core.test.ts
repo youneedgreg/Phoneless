@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   EMPTY, OTHER_BANK, OTHER_CARRIER, PACKS, QUESTIONS, SAMPLE,
-  accountAccess, answer, applyFix, buildPlan, currentValue, decodeGo, encodeGo, evaluate, visibleQuestions,
+  accountAccess, answer, applyFix, buildPlan, cardData, currentValue, decodeGo, encodeGo, evaluate, visibleQuestions,
 } from '../src/core';
 import type { Profile } from '../src/core';
 
@@ -186,6 +186,41 @@ describe('go-link', () => {
   });
   it('falls back to the generic pack for an unknown country', () => {
     expect(decodeGo('zz.a.x.x')!.country).toBe('xx');
+  });
+});
+
+describe('wallet card', () => {
+  const noExtras = { contact: '', imei: '' };
+  it('builds the sample front in plan order: six steps, the carrier call second', () => {
+    const d = cardData(SAMPLE, noExtras, 'phoneless-prod.vercel.app');
+    expect(d.steps).toHaveLength(6);
+    expect(d.steps[0]).toBe('Get safe. Borrow a phone.');
+    expect(d.steps[1]).toBe('Call carrier: block SIM and mobile money');
+  });
+  it('writes the plan code and the checked date onto the card', () => {
+    const d = cardData(SAMPLE, noExtras, 'phoneless-prod.vercel.app');
+    expect(d.site).toBe('phoneless-prod.vercel.app/#/go/ke.a.saf.eq-kcb');
+    expect(d.checked).toBe('14 Nov 2026');
+  });
+  it('lists carriers first with up to two any-network numbers each', () => {
+    const d = cardData(SAMPLE, noExtras, 'x');
+    expect(d.rows[0]).toEqual({ name: 'Safaricom', numbers: ['0722 002 100', '0722 002 200'] });
+    expect(d.rows.map((r) => r.name)).toEqual(['Safaricom', 'Equity Bank', 'KCB Bank']);
+    expect(d.emergency).toBe('999 or 112');
+    expect(d.dropped).toBe(0);
+  });
+  it('keeps five rows and reports the rest when there are too many providers', () => {
+    const many: Profile = { ...SAMPLE, carriers: ['safaricom', 'airtel', 'telkom'], banks: ['equity', 'kcb', 'coop', 'absa', 'ncba', 'stanbic'] };
+    const d = cardData(many, noExtras, 'x');
+    expect(d.rows).toHaveLength(5);
+    expect(d.dropped).toBe(4);
+  });
+  it('leaves out an empty contact and IMEI, and trims what is typed', () => {
+    expect(cardData(SAMPLE, { contact: '', imei: '' }, 'x').contact).toBeUndefined();
+    expect(cardData(SAMPLE, { contact: '', imei: '' }, 'x').imei).toBeUndefined();
+    const d = cardData(SAMPLE, { contact: ' 0700 000 000 ', imei: ' 350000000000000 ' }, 'x');
+    expect(d.contact).toBe('0700 000 000');
+    expect(d.imei).toBe('350000000000000');
   });
 });
 
