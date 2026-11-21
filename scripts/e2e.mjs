@@ -63,6 +63,14 @@ await page.reload();
 await page.waitForSelector('.score');
 check('result survives a reload', (await page.textContent('.score')).includes('5 of 5'));
 
+// 3a. Copy my plan link puts the go-link on the clipboard
+await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: BASE });
+await page.getByRole('button', { name: 'Copy my plan link' }).click();
+await page.getByRole('button', { name: 'Copied' }).waitFor({ timeout: 3000 }).catch(() => {});
+const copied = await page.evaluate(() => navigator.clipboard.readText()).catch(() => '');
+check('copy my plan link copies the go-link', copied === `${BASE}/#/go/ke.a.saf.eq-kcb`, copied);
+check('copy button says Copied', (await page.getByRole('button', { name: 'Copied' }).count()) === 1);
+
 // 3b. The wallet card is built from the drill
 await page.goto(`${BASE}/#/card`);
 await page.waitForSelector('.cards');

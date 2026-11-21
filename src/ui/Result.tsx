@@ -1,4 +1,5 @@
-import { SAMPLE_NAME, applyFix, evaluate } from '../core';
+import { useState } from 'react';
+import { SAMPLE_NAME, applyFix, encodeGo, evaluate } from '../core';
 import type { Status } from '../core';
 import type { ScreenProps } from './App';
 
@@ -56,8 +57,27 @@ export function Result({ saved, update }: ScreenProps) {
       <div className="row">
         <a className="btn primary" href="#/card">Make my wallet card</a>
         <a className="btn" href="#/emergency">See my plan</a>
+        <CopyLink link={location.origin + '/#/go/' + encodeGo(p)} />
       </div>
       <p className="muted">This result comes from your answers. Phoneless cannot see your phone or check your settings, so it can be wrong. If a finding does not fit you, set it aside.</p>
+    </>
+  );
+}
+
+// Copies the plan link (it carries only phone type, carriers and banks — no answers).
+// If the browser refuses the clipboard, the link is shown so it can be selected by hand.
+function CopyLink({ link }: { link: string }) {
+  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');
+  const copy = () => {
+    const done = () => setState('copied');
+    const fail = () => setState('failed');
+    try { navigator.clipboard.writeText(link).then(done, fail); } catch { fail(); }
+  };
+  return (
+    <>
+      <button className="btn" onClick={copy}>{state === 'copied' ? 'Copied' : 'Copy my plan link'}</button>
+      <span className="sr-only" role="status">{state === 'copied' ? 'Plan link copied' : ''}</span>
+      {state === 'failed' && <p className="link-out">Copy this link by hand: <span className="selectable">{link}</span></p>}
     </>
   );
 }
