@@ -18,12 +18,24 @@ export function Emergency({ saved, code }: Props) {
 
   const ev = own ? evaluate(own) : undefined;
   const steps = buildPlan(picked, ev);
+  const notReady = ev ? ev.actions.filter((a) => a.status === 'later' || a.status === 'blocked') : [];
   const toggle = (id: string) => { const n = new Set(done); n.has(id) ? n.delete(id) : n.add(id); setDone(n); };
 
   return (
     <>
       <h1 tabIndex={-1}>Phone gone: do these in order</h1>
       <p className="muted">Plan code: <strong>{encodeGo(picked)}</strong>. {own ? 'Built from your drill.' : 'Built from the code or your choices, not from a drill.'} <button className="btn" onClick={() => setPicked(null)}>Change</button></p>
+      {notReady.length > 0 && (
+        <div className="card not-ready">
+          <h2>Not possible right away</h2>
+          <p>From your drill, these will not work yet. Do not lose minutes on them; the plan below works around them.</p>
+          <ul>
+            {notReady.map((a) => (
+              <li key={a.id}><strong>{a.title}: {a.status === 'later' ? 'later' : 'blocked'}.</strong> {a.reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       <h2>In the first hour</h2>
       <ol className="steps">
         {steps.filter((s) => s.firstHour).map((s) => <Step key={s.id} s={s} done={done.has(s.id)} toggle={toggle} />)}

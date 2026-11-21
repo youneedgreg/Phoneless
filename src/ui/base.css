@@ -49,6 +49,13 @@ a.tel { display: flex; justify-content: space-between; gap: 1rem; align-items: c
 a.tel span.num { font-size: 1.125rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 blockquote.say { margin: .5rem 0; padding: .5rem .75rem; border-left: 4px solid var(--accent); background: var(--card); }
 .src { font-size: .875rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.link-out { flex-basis: 100%; }
+.not-ready { border-left: 4px solid var(--warn); }
+.not-ready h2 { margin-top: 0; }
+.not-ready ul { padding-left: 1.25rem; margin: .5rem 0 0; }
+.size-line { margin-top: 0; }
+.selectable { user-select: all; word-break: break-all; font-weight: 600; }
 footer { color: var(--muted); font-size: .875rem; border-top: 1px solid var(--line); margin-top: 2rem; }
 /* Wallet card: optional inputs */
 .field { margin: .75rem 0; }
