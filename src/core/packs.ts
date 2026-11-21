@@ -5,7 +5,7 @@ import type { Pack, Provider } from './types';
 // evidence 'excerpt' = the official page was read as a search-engine excerpt because a direct fetch failed.
 // Re-check every entry before you ship (Day-1 check 3) and bump `checked`.
 const CHECKED = '2026-11-14';
-// Re-opened in a browser on 21 Nov 2026 (Day-1 check 3): the six entries that were excerpts.
+// Re-opened on 21 Nov 2026 (Day-1 check 3): the six providers and the police line that were excerpts.
 const RECHECKED = '2026-11-21';
 
 const ke: Provider[] = [
@@ -102,8 +102,8 @@ export const PACKS: Record<string, Pack> = {
       tel: '999',
       source: {
         url: 'https://nationalpolice.go.ke/sites/default/files/2025-01/NPS%20Service%20Standards.pdf',
-        checked: CHECKED,
-        evidence: 'excerpt',
+        checked: RECHECKED,
+        evidence: 'opened',
       },
     },
     providers: ke,
