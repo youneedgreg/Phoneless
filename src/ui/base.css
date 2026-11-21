@@ -50,4 +50,32 @@ a.tel span.num { font-size: 1.125rem; font-variant-numeric: tabular-nums; white-
 blockquote.say { margin: .5rem 0; padding: .5rem .75rem; border-left: 4px solid var(--accent); background: var(--card); }
 .src { font-size: .875rem; }
 footer { color: var(--muted); font-size: .875rem; border-top: 1px solid var(--line); margin-top: 2rem; }
-@media print { header.top, footer, .no-print { display: none !important; } body { background: #fff; color: #000; } }
+/* Wallet card: optional inputs */
+.field { margin: .75rem 0; }
+.field label { display: block; font-weight: 600; margin-bottom: .25rem; }
+.field input { width: 100%; min-height: 3rem; padding: .5rem .75rem; font: inherit;
+  border: 2px solid var(--line); border-radius: .5rem; background: var(--bg); color: var(--fg); }
+
+/* The printable card: two faces the size of an ID card, black on white in any theme */
+.cards { display: flex; flex-wrap: wrap; gap: 6mm; margin: 1rem 0; }
+.face { width: 85.6mm; height: 54mm; padding: 3mm; overflow: hidden;
+  border: .3mm dashed #000; background: #fff; color: #000; font-size: 7.5pt; line-height: 1.25; }
+.face h2 { font-size: 9pt; margin: 0 0 1mm; color: #000; }
+.face ol { margin: 0; padding-left: 4mm; }
+.face dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0 2mm; }
+.face dt { font-weight: 700; } .face dd { margin: 0; }
+.face .site { font-size: 7pt; margin: 1mm 0 0; word-break: break-all; }
+
+/* About: the numbers table scrolls sideways on a narrow phone */
+.table-wrap { overflow-x: auto; margin: .75rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: .9375rem; }
+caption { text-align: left; font-weight: 600; margin-bottom: .5rem; }
+th, td { text-align: left; vertical-align: top; padding: .4rem .6rem; border-bottom: 1px solid var(--line); }
+th[scope="col"] { white-space: nowrap; }
+
+@media print {
+  header.top, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  @page { size: A4; margin: 12mm; }
+  main > *:not(.cards) { display: none !important; }
+}

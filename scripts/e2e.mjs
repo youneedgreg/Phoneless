@@ -63,6 +63,18 @@ await page.reload();
 await page.waitForSelector('.score');
 check('result survives a reload', (await page.textContent('.score')).includes('5 of 5'));
 
+// 3b. The wallet card is built from the drill
+await page.goto(`${BASE}/#/card`);
+await page.waitForSelector('.cards');
+const cardText = await page.textContent('main');
+check('card shows the plan code', cardText.includes('ke.a.saf.eq-kcb'));
+check('card shows the Safaricom any-network number', cardText.includes('0722 002 100'));
+
+// 3c. The About page renders the nine-row numbers table from the data
+await page.goto(`${BASE}/#/about`);
+await page.waitForSelector('table.numbers');
+check('about numbers table has nine rows', (await page.locator('table.numbers tbody tr').count()) === 9);
+
 // 4. Offline after one visit
 await page.evaluate(() => navigator.serviceWorker.ready);
 await page.waitForFunction(() => navigator.serviceWorker.controller !== null, null, { timeout: 10000 }).catch(() => {});

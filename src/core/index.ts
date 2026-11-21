@@ -7,3 +7,4 @@ export * from './fix';
 export * from './sample';
 export * from './storage';
 export * from './questions';
+export * from './card';
