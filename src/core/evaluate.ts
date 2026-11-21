@@ -202,7 +202,7 @@ export function findingsFor(p: Profile): Finding[] {
       loop: [],
       fix: [
         android
-          ? 'Open Settings, then Security & privacy, then More security settings, then SIM lock, then Lock SIM.'
+          ? 'Open Settings, then Security and privacy, then More security settings, then SIM card security, and turn on Lock SIM card. On other phones the names differ: search Settings for SIM lock.'
           : iphone
             ? 'Open Settings, then Cellular (or Mobile Service), then SIM PIN.'
             : 'Open the phone’s security settings and look for SIM lock or SIM PIN.',
@@ -221,7 +221,7 @@ export function findingsFor(p: Profile): Finding[] {
       loop: [],
       fix: [
         android
-          ? 'Open Settings, then Notifications, then the lock screen option, and choose to hide sensitive content. The wording differs by phone maker.'
+          ? 'Open Settings, then Notifications. On a Samsung, tap Hide content while locked and choose Hide when locked. On other phones, look for the lock screen notification setting and hide sensitive content.'
           : iphone
             ? 'Open Settings, then Notifications, then Show Previews, and choose When Unlocked.'
             : 'Open the phone’s notification settings and hide message contents on the lock screen.',
