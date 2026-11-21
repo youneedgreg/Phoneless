@@ -1,0 +1,26 @@
+{
+  "name": "phoneless",
+  "version": "1.0.0",
+  "description": "A two-minute drill for the day your phone is stolen.",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build && node scripts/postbuild.mjs",
+    "e2e": "npm run build && node scripts/e2e.mjs",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "playwright-core": "^1.65.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "private": true,
+  "type": "module"
+}
