@@ -49,6 +49,14 @@ check('sample starts at 1 of 5', (await page.textContent('.score')).includes('1 
 check('the sign-in loop is shown', (await page.textContent('main')).includes('Code goes to the stolen SIM'));
 check('eight findings listed', (await page.locator('main li.card .sev').count()) === 8);
 
+// 1b. Her plan starts with the actions that will not work yet
+await page.goto(`${BASE}/#/emergency`);
+await page.waitForSelector('ol.steps');
+const notReady = (await page.locator('.not-ready').count()) ? await page.textContent('.not-ready') : '';
+check('plan from the drill lists what is not ready', notReady.includes('Lock the phone remotely: '), notReady.slice(0, 80));
+await page.goto(`${BASE}/#/result`);
+await page.waitForSelector('.score');
+
 // 2. Fix everything: after
 for (let i = 0; i < 12; i++) {
   const btn = page.getByRole('button', { name: 'I fixed this' }).first();
@@ -70,6 +78,11 @@ await page.getByRole('button', { name: 'Copied' }).waitFor({ timeout: 3000 }).ca
 const copied = await page.evaluate(() => navigator.clipboard.readText()).catch(() => '');
 check('copy my plan link copies the go-link', copied === `${BASE}/#/go/ke.a.saf.eq-kcb`, copied);
 check('copy button says Copied', (await page.getByRole('button', { name: 'Copied' }).count()) === 1);
+
+// 3a2. With all five ready, the plan has no not-ready box
+await page.goto(`${BASE}/#/emergency`);
+await page.waitForSelector('ol.steps');
+check('no not-ready box at 5 of 5', (await page.locator('.not-ready').count()) === 0);
 
 // 3b. The wallet card is built from the drill
 await page.goto(`${BASE}/#/card`);
