@@ -2,3 +2,13 @@ node_modules
 dist
 .DS_Store
 *.log
+
+# Local env and deploy settings
+.env*
+.vercel
+
+# Local-only notes and media (never committed)
+*.local.md
+media.local/
+scripts.local/
+.claude/
