@@ -19,9 +19,19 @@ export function Result({ saved, update }: ScreenProps) {
     <>
       <h1 tabIndex={-1}>Your result</h1>
       {saved.sample && <p className="card">You are looking at {SAMPLE_NAME}. <a href="#/drill">Do the drill for yourself.</a></p>}
-      <p className="score" aria-live="polite">You could do {ev.ready} of {ev.applicable} first-hour actions.</p>
+      <p className="score" aria-live="polite"><span className="score-num">{ev.ready} of {ev.applicable}</span> <span>first-hour actions you could do right now.</span></p>
+      <div className="meter" aria-hidden="true">{Array.from({ length: ev.applicable }, (_, i) => <span key={i} className={i < ev.ready ? 'on' : ''} />)}</div>
       {changed && first && <p>When you first took the drill it was {first.ready} of {first.applicable}, with {first.findings} things to fix.</p>}
       <p className="muted">Ready means you could do it within minutes from a borrowed phone, with nothing looked up. Later means you must first reach something you do not have with you. Blocked means it cannot be done as things stand.</p>
+
+      <div className="card next">
+        <h2>Your next step</h2>
+        {open.length > 0
+          ? (<><p>Fix the most urgent thing first: <strong>{open[0].title}</strong> (about {open[0].minutes} minutes).</p>
+              <button className="btn primary" onClick={() => { const h = document.getElementById(`fix-${open[0].id}`); h?.scrollIntoView({ block: 'start' }); h?.focus(); }}>Show me how</button></>)
+          : (<><p>Everything on your list is fixed or set aside. Put the plan on paper so it is not only on your phone.</p>
+              <a className="btn primary" href="#/card">Make my wallet card</a></>)}
+      </div>
 
       <h2>The first hour</h2>
       <ul className="plain">
@@ -38,7 +48,7 @@ export function Result({ saved, update }: ScreenProps) {
         {open.map((f) => (
           <li className="card" key={f.id}>
             <p className={`sev ${f.severity}`}>{f.severity}</p>
-            <h3>{f.title}</h3>
+            <h3 id={`fix-${f.id}`} tabIndex={-1}>{f.title}</h3>
             <p>{f.why}</p>
             {f.loop.length > 0 && <ol className="loop" aria-label="The loop you would be stuck in">{f.loop.map((x) => <li key={x}>{x}</li>)}</ol>}
             <p><strong>Fix it in about {f.minutes} minutes</strong></p>

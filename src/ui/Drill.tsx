@@ -8,6 +8,7 @@ export function Drill({ saved, update }: ScreenProps) {
   const [touched, setTouched] = useState<Set<string>>(() => new Set(saved.profile && !saved.sample ? visibleQuestions(saved.profile).map((q) => q.id) : []));
   const [error, setError] = useState('');
   const questions = visibleQuestions(p);
+  const answered = questions.filter((q) => touched.has(q.id)).length;
 
   const pick = (q: Question, value: string, checked: boolean) => {
     let next: string | string[] = value;
@@ -43,6 +44,10 @@ export function Drill({ saved, update }: ScreenProps) {
     <form onSubmit={finish} noValidate>
       <h1 tabIndex={-1}>The drill</h1>
       <p>Answer for the phone in your pocket today. Nothing you choose leaves this device. Never type a PIN, password or ID number here: the drill does not ask for one.</p>
+      <p className="progress">
+        <span>{answered} of {questions.length} answered</span>
+        <span className="bar" aria-hidden="true"><span style={{ width: `${Math.round((answered / questions.length) * 100)}%` }} /></span>
+      </p>
       {questions.map((q, i) => {
         const now = touched.has(q.id) ? currentValue(p, q) : [];
         const noneOn = q.kind === 'many' && touched.has(q.id) && now.length === 0;

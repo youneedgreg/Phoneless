@@ -34,6 +34,8 @@ export function App() {
   // Move focus to the page heading on every screen change, so screen readers announce it.
   useEffect(() => { document.querySelector<HTMLElement>('main h1')?.focus(); }, [route]);
 
+  const here = (r: string) => (route === r || (r === '/emergency' && route.startsWith('/go/')) ? 'page' : undefined);
+
   let screen;
   if (route.startsWith('/go/')) screen = <Emergency {...props} code={decodeURIComponent(route.slice(4))} />;
   else if (route === '/emergency') screen = <Emergency {...props} />;
@@ -47,12 +49,12 @@ export function App() {
     <>
       <header className="top">
         <a className="brand" href="#/">Phoneless</a>
+        <a className="gone" href="#/emergency" aria-current={here('/emergency')}>Phone gone now</a>
         <nav aria-label="Main">
-          <a href="#/drill">Drill</a>
-          <a href="#/result">Result</a>
-          <a href="#/card">Card</a>
-          <a href="#/emergency">Phone gone now</a>
-          <a href="#/about">About</a>
+          <a href="#/drill" aria-current={here('/drill')}>Drill</a>
+          <a href="#/result" aria-current={here('/result')}>Result</a>
+          <a href="#/card" aria-current={here('/card')}>Card</a>
+          <a href="#/about" aria-current={here('/about')}>About</a>
         </nav>
       </header>
       <main>{screen}</main>
