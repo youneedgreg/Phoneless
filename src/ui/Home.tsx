@@ -3,7 +3,7 @@ import type { ScreenProps } from './App';
 
 // Gzipped size of the whole build, rounded up, from `npm run build` (TOTAL line).
 // The e2e checks it against the real dist/ so it cannot go stale.
-const APP_KB = 25;
+const APP_KB = 26;
 
 export function Home({ saved, update }: ScreenProps) {
   const trySample = () => {
