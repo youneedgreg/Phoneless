@@ -34,7 +34,7 @@ export function buildPlan(input: PlanInput, ev?: Evaluation): PlanStep[] {
     id: 'lock-phone', firstHour: true,
     title: `Lock the phone with ${finder}`,
     detail: input.os === 'android'
-      ? 'Sign in, pick the phone and choose Mark as lost. Do this before the SIM is blocked: the lock only reaches the phone while it is online. Give it two minutes. If sign-in asks for a code you cannot get, move to the next step.'
+      ? 'Sign in, pick the phone and choose Mark as lost. The lock only reaches the phone while it has Wi-Fi or mobile data, so once the SIM is blocked it may arrive only when the phone joins Wi-Fi. Give it two minutes. If sign-in asks for a code you cannot get, move to the next step.'
       : 'Sign in with your Apple Account password, pick the phone and choose Mark as Lost. No verification code is needed. Do not add your contact details to the lock screen of a stolen phone.',
     link: { label: input.os === 'android' ? 'google.com/android/find' : 'icloud.com/find', url: input.os === 'android' ? TOOLS.android.url : TOOLS.iphone.url },
     source: input.os === 'android' ? TOOLS.android.source : TOOLS.iphone.source,
@@ -106,10 +106,11 @@ export function buildPlan(input: PlanInput, ev?: Evaluation): PlanStep[] {
     source: lock?.source,
   };
 
-  // The lock goes first unless the drill showed the owner cannot do it yet.
-  const lockFirst = lock && (lockState === undefined || lockState === 'ready');
-  const steps: Array<PlanStep | null> = lockFirst
-    ? [safe, lock, block, bank, account, warn, police, sim, erase]
+  // The carrier call always comes first: the SIM and mobile money are the fastest losses.
+  // The lock follows it when the owner can do it now, or waits until after the banks when not.
+  const lockReady = lock && (lockState === undefined || lockState === 'ready');
+  const steps: Array<PlanStep | null> = lockReady
+    ? [safe, block, lock, bank, account, warn, police, sim, erase]
     : [safe, block, bank, lock, account, warn, police, sim, erase];
   return steps.filter((s): s is PlanStep => !!s);
 }
