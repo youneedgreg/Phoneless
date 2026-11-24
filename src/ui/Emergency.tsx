@@ -51,7 +51,7 @@ export function Emergency({ saved, code }: Props) {
 
 function Step({ s, done, toggle }: { s: ReturnType<typeof buildPlan>[number]; done: boolean; toggle: (id: string) => void }) {
   return (
-    <li>
+    <li className={done ? 'done' : undefined}>
       <h3>{s.title}</h3>
       <p>{s.detail}</p>
       {s.say && <blockquote className="say"><strong>Say:</strong> “{s.say}”</blockquote>}
