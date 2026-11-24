@@ -13,7 +13,8 @@ body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.5 system
 main, header.top, footer { max-width: 44rem; margin: 0 auto; padding: 1rem; }
 header.top { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; justify-content: space-between; }
 header.top a.brand { font-weight: 700; font-size: 1.125rem; text-decoration: none; color: var(--fg); }
-nav { display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
+header.top a { display: inline-flex; align-items: center; min-height: 3rem; }
+nav { display: flex; flex-wrap: wrap; gap: 0 1rem; }
 a { color: var(--accent); }
 h1 { font-size: 1.75rem; line-height: 1.2; margin: .5rem 0; }
 h2 { font-size: 1.25rem; margin: 1.5rem 0 .5rem; }
