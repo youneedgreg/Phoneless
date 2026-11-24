@@ -57,7 +57,7 @@ export function Card({ saved, update }: ScreenProps) {
         <p className="muted">These two stay on this device and on the paper you print. Do not add your ID number, a PIN or a password.</p>
       </div>
 
-      <div className="cards" aria-label="Your wallet card, front and back">
+      <div className="cards" role="group" aria-label="Your wallet card, front and back">
         <section className="face" aria-label="Card front">
           <h2>If this phone is gone</h2>
           <ol>{data.steps.map((s) => <li key={s}>{s}</li>)}</ol>
