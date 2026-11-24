@@ -84,7 +84,10 @@ export function About() {
             <tr><th scope="row">Real phone: plan code on a phone that never opened the site, tap-to-call, copy link, offline</th><td>Pass on a Samsung Galaxy A06, Android 16, Chrome</td></tr>
             <tr><th scope="row">Android settings steps followed on that phone</th><td>Two steps had the wrong menu names for Samsung; both fixed</td></tr>
             <tr><th scope="row">Printed card, A4 at 100%</th><td>Pass: each face 85.6 × 54 mm, nothing cut off, also with five providers</td></tr>
-            <tr><th scope="row">Screen readers (VoiceOver, TalkBack)</th><td>Not yet run</td></tr>
+            <tr><th scope="row">Screen readers</th><td>Pass with VoiceOver and Safari on a Mac, and TalkBack on the Samsung A06</td></tr>
+            <tr><th scope="row">Keyboard only, zoom to 400%, a 320 px screen, contrast, colour removed</th><td>Pass after three fixes (a button that pushed the page sideways, text under 16 px, nav links under 48 px)</td></tr>
+            <tr><th scope="row">Automated checks</th><td>axe-core 4.14.1: 0 violations on seven screens. Lighthouse 13.6.0: accessibility 100 on four screens</td></tr>
+            <tr><th scope="row">Every sentence read aloud to people who are not developers</th><td>7 people; nobody was confused</td></tr>
             <tr><th scope="row">People taking the drill unaided</th><td>Not yet run</td></tr>
           </tbody>
         </table>
