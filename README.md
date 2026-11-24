@@ -4,6 +4,8 @@
 
 **Try it:** https://phoneless-prod.vercel.app · No account, no server, nothing you answer leaves your device.
 
+**Watch the demo (2:46):** https://youtu.be/GchgIZ0uaVg
+
 <p>
   <img src="docs/screenshots/result.png" alt="Result screen for the sample person: 1 of 5 first-hour actions, a five-part meter with one part filled, and a Your next step box" width="260">
   <img src="docs/screenshots/plan.png" alt="Plan screen, step 2: call your carrier, with what to say and four tap-to-call Safaricom numbers" width="260">
@@ -15,13 +17,14 @@
 1. [The situation](#the-situation)
 2. [Try it in two minutes](#try-it-in-two-minutes)
 3. [One safer outcome](#one-safer-outcome)
-4. [How it works](#how-it-works)
-5. [Where the numbers come from](#where-the-numbers-come-from)
-6. [How it was tested](#how-it-was-tested)
-7. [Limitations](#limitations)
-8. [Privacy](#privacy)
-9. [Run it locally](#run-it-locally)
-10. [Built during the event, credits and AI assistance](#built-during-the-event-credits-and-ai-assistance)
+4. [Demo video](#demo-video)
+5. [How it works](#how-it-works)
+6. [Where the numbers come from](#where-the-numbers-come-from)
+7. [How it was tested](#how-it-was-tested)
+8. [Limitations](#limitations)
+9. [Privacy](#privacy)
+10. [Run it locally](#run-it-locally)
+11. [Built during the event, credits and AI assistance](#built-during-the-event-credits-and-ai-assistance)
 
 ## The situation
 
@@ -47,6 +50,53 @@ After the **8 fixes** the drill suggests — about **30 minutes** in total by th
 <img src="docs/screenshots/card.png" alt="The two faces of the wallet card for the sample person: six steps and the plan link on the front; Safaricom, Equity, KCB, police, a made-up trusted number and a made-up IMEI on the back" width="360">
 
 The card above uses the made-up contact `0700 000 000` and IMEI `35 000000 000000 0`.
+
+## Demo video
+
+**[Watch on YouTube (2:46)](https://youtu.be/GchgIZ0uaVg)** · English captions included.
+
+The video is a screen recording of the live site at phone size, with the sample person only. The borrowed-phone part is the same test browser with its storage cleared, not a second phone; the real "never opened it before" test was on a Samsung Galaxy A06 (see the [test log](docs/test-log.md)). The card in a wallet is a mockup: a screenshot of the real card on a stock photo.
+
+<details>
+<summary>Transcript</summary>
+
+**Intro cards**
+
+In January, Nairobi detectives found about nine hundred stolen phones in two parcels bound for Uganda. *(Capital FM, 26 Jan 2026, via [allAfrica](https://allafrica.com/stories/202601260159.html))*
+
+INTERPOL says SIM-swap fraud in Kenya rose 327% in 2025. *(INTERPOL, [African Cyberthreat Assessment Report 2026](https://www.interpol.int/Media/Documents/Publications/Cybercrime/African-Cyberthreat-Assessment-Report-2026), which cites Safaricom's figures as reported by Capital FM)*
+
+And one phone holds the SIM, M-PESA, the bank app and every sign-in code.
+
+**The situation**
+
+Your phone has just been snatched. Someone lends you theirs. Whose number do you know by heart? Can you even sign in to lock your phone? Most people find out on the street.
+
+**The drill**
+
+Phoneless is a two-minute drill you take before that day comes. Fifteen tick-box questions. It never asks for a PIN, a password or an ID number. This is Amina. She is made up.
+
+**The result**
+
+Amina could do one of the five first-hour actions today. Here is why she can't lock her phone. Locking it needs her Google sign-in. The sign-in sends a code. And the code goes to the phone that was stolen.
+
+Each finding says why it matters, how to fix it, and where the steps come from. If one doesn't fit, she can set it aside. After eight fixes, about half an hour, she's at five of five.
+
+**The wallet card**
+
+Then she makes a wallet card, because the plan can't live only on the phone she might lose. Steps on the front, numbers that work from any network on the back. No ID number, no PIN, no password. Printed, it's the size of a bank card. This is a mockup on a stock photo.
+
+**On a borrowed phone**
+
+On a borrowed phone, she types the short code from the card. Her plan opens, in order, with the words to say and the numbers to tap. And on a phone that has opened it before, it still opens with the network off.
+
+**Privacy and limits**
+
+There is no server and no account, and nothing leaves the device. Every number shows its source and the date it was checked. It can't block anything for you, and it can be wrong. It doesn't replace your carrier, your bank or the police.
+
+Phoneless. phoneless-prod.vercel.app
+
+</details>
 
 ## How it works
 
@@ -157,6 +207,8 @@ If `npm run e2e` cannot find Chrome, set `CHROME_PATH` to the Chrome binary.
 **Libraries:** [Preact](https://preactjs.com), [Vite](https://vite.dev), [@preact/preset-vite](https://github.com/preactjs/preset-vite), [Vitest](https://vitest.dev) and [playwright-core](https://playwright.dev). No analytics, fonts or scripts from anywhere else.
 
 **Data:** contact numbers from the official pages of Safaricom, Airtel, Telkom, Equity, KCB, Co-operative, Absa, NCBA and Stanbic, and the National Police Service (linked above). Device and account steps from Google, Apple and WhatsApp help pages. The design direction was inspired by the Wise style on [Refero Styles](https://styles.refero.design); no logos, fonts or artwork were copied.
+
+**Video:** voice by me. The wallet in the mockup is [Wallet (AM 1969.3-5)](https://commons.wikimedia.org/wiki/File:Wallet_(AM_1969.3-5).jpg) by Auckland War Memorial Museum, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), with the card added. The background piano was synthesised on my computer with an algorithmic music tool, with no samples. The intro figures come from Capital FM (via allAfrica) and INTERPOL, linked in the transcript.
 
 **People and data:** the sample person, Amina, is made up. No real names, numbers or answers appear anywhere in Phoneless, its screenshots or its tests.
 
