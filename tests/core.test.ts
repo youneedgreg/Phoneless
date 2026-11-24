@@ -148,6 +148,11 @@ describe('plan', () => {
     for (const f of evaluate(SAMPLE).findings) p = applyFix(f.id, p);
     expect(ids(buildPlan(p, evaluate(p))).slice(0, 3)).toEqual(['safe', 'block-line', 'lock-phone']);
   });
+  it('tells people the carrier will ask questions about the line', () => {
+    const block = buildPlan(input).find((s) => s.id === 'block-line')!;
+    expect(block.detail).toContain('ID number');
+    expect(block.detail).toContain('last airtime top-up');
+  });
   it('lists the any-network numbers first for each carrier and bank', () => {
     const steps = buildPlan(input);
     const block = steps.find((s) => s.id === 'block-line')!;

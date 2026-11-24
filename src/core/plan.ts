@@ -44,8 +44,8 @@ export function buildPlan(input: PlanInput, ev?: Evaluation): PlanStep[] {
     id: 'block-line', firstHour: true,
     title: wallets ? `Call your carrier: block the SIM and ${wallets}` : 'Call your carrier: block the SIM and mobile money',
     detail: unknownCarrier
-      ? 'From another network a short code like 100 will not reach your carrier. Find the full customer care number on the carrier’s official website. They will ask for your name, your number and your ID number.'
-      : 'Short codes like 100 only work from the same network. From any other phone use the long number. They will ask for your name, your number and your ID number.',
+      ? 'From another network a short code like 100 will not reach your carrier. Find the full customer care number on the carrier’s official website. They will check it is you: expect your name, number and ID number, and questions about the line such as your last airtime top-up and the number you call most.'
+      : 'Short codes like 100 only work from the same network. From any other phone use the long number. They will check it is you: expect your name, number and ID number, and questions about the line such as your last airtime top-up and the number you call most.',
     say: 'My phone has been stolen. Please block my line and my mobile money now, and do not allow a SIM replacement until I come to a shop with my ID.',
     lines: linesOf(carriers),
     source: carriers[0]?.source.url,
