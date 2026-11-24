@@ -64,6 +64,18 @@ label.opt input { width: 1.5rem; height: 1.5rem; flex: none; margin: 0; accent-c
 .score { font-size: 1.75rem; line-height: 1.15; font-weight: 900; letter-spacing: -.025em; }
 ul.plain, ol.plain { list-style: none; padding: 0; margin: 0; }
 .status { font-weight: 800; white-space: nowrap; }
+h3 .status { display: inline-block; margin-left: .25rem; padding: 0 .625rem; border: 2px solid currentColor; border-radius: 999px; background: var(--bg); font-size: 1rem; vertical-align: .1em; }
+
+/* Result: the big score, a five-part meter and one clear next step */
+.score { margin: .25rem 0; }
+.score-num { display: block; font-size: clamp(3.5rem, 18vw, 5rem); line-height: .95; letter-spacing: -.05em; }
+.score-num + span { font-size: 1.25rem; letter-spacing: -.01em; }
+.meter { display: flex; gap: .375rem; margin: .75rem 0 1rem; max-width: 20rem; }
+.meter span { flex: 1; height: .75rem; border-radius: 999px; background: var(--card-2); border: 2px solid var(--line); }
+.meter span.on { background: var(--lime); border-color: var(--fg); }
+.card.next { background: var(--bar); color: var(--bar-fg); }
+.card.next h2 { margin-top: 0; color: var(--lime); }
+.card.next :focus-visible { outline-color: var(--lime); }
 
 /* Drill: a progress line that stays at the top while scrolling */
 html:has(.progress) { scroll-padding-top: 5rem; }
