@@ -119,7 +119,7 @@ const text = await page.textContent('main');
 check('go-link opens offline', text.includes('Phone gone: do these in order'));
 check('offline plan has the Safaricom any-network number', text.includes('0722 002 100'));
 check('offline plan has the Equity and KCB numbers', text.includes('0763 000 000') && text.includes('0711 087 000'));
-check('lock step comes before the carrier call on a go-link', text.indexOf('Lock the phone with Find Hub') < text.indexOf('Call your carrier'));
+check('carrier call comes before the lock step on a go-link', text.indexOf('Call your carrier') > -1 && text.indexOf('Call your carrier') < text.indexOf('Lock the phone with Find Hub'));
 const tel = await page.locator('a.tel').first().getAttribute('href');
 check('numbers are tap-to-call links', tel === 'tel:999', tel);
 

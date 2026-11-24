@@ -129,16 +129,29 @@ describe('calls', () => {
 describe('plan', () => {
   const input = { country: 'ke', os: 'android' as const, carriers: ['safaricom'], banks: ['equity', 'kcb'] };
   const ids = (steps: ReturnType<typeof buildPlan>) => steps.map((s) => s.id);
-  it('puts the lock before the carrier call when nothing is known about the owner', () => {
-    expect(ids(buildPlan(input))).toEqual(['safe', 'lock-phone', 'block-line', 'freeze-bank', 'secure-account', 'warn-contact', 'police', 'replace-sim', 'erase']);
+  it('puts the carrier call first and the lock second when nothing is known about the owner', () => {
+    expect(ids(buildPlan(input))).toEqual(['safe', 'block-line', 'lock-phone', 'freeze-bank', 'secure-account', 'warn-contact', 'police', 'replace-sim', 'erase']);
+  });
+  it('never puts the lock before the carrier call, whatever the drill says', () => {
+    let p = SAMPLE;
+    for (const f of evaluate(SAMPLE).findings) p = applyFix(f.id, p);
+    for (const plan of [buildPlan(input), buildPlan(SAMPLE, evaluate(SAMPLE)), buildPlan(p, evaluate(p))]) {
+      const order = ids(plan);
+      expect(order.indexOf('block-line')).toBeLessThan(order.indexOf('lock-phone'));
+    }
   });
   it('moves the lock after the calls when the drill says the owner cannot sign in yet', () => {
     expect(ids(buildPlan(SAMPLE, evaluate(SAMPLE))).slice(0, 4)).toEqual(['safe', 'block-line', 'freeze-bank', 'lock-phone']);
   });
-  it('keeps the lock first once the owner is ready', () => {
+  it('moves the lock up to right after the carrier call once the owner is ready', () => {
     let p = SAMPLE;
     for (const f of evaluate(SAMPLE).findings) p = applyFix(f.id, p);
-    expect(ids(buildPlan(p, evaluate(p)))[1]).toBe('lock-phone');
+    expect(ids(buildPlan(p, evaluate(p))).slice(0, 3)).toEqual(['safe', 'block-line', 'lock-phone']);
+  });
+  it('tells people the carrier will ask questions about the line', () => {
+    const block = buildPlan(input).find((s) => s.id === 'block-line')!;
+    expect(block.detail).toContain('ID number');
+    expect(block.detail).toContain('last airtime top-up');
   });
   it('lists the any-network numbers first for each carrier and bank', () => {
     const steps = buildPlan(input);
@@ -161,7 +174,7 @@ describe('plan', () => {
     expect(block.detail).toContain('official website');
   });
   it('marks exactly the first six kinds of step as first-hour', () => {
-    expect(buildPlan(input).filter((s) => s.firstHour).map((s) => s.id)).toEqual(['safe', 'lock-phone', 'block-line', 'freeze-bank', 'secure-account', 'warn-contact']);
+    expect(buildPlan(input).filter((s) => s.firstHour).map((s) => s.id)).toEqual(['safe', 'block-line', 'lock-phone', 'freeze-bank', 'secure-account', 'warn-contact']);
   });
 });
 

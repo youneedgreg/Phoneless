@@ -26,7 +26,7 @@ export function About() {
         <li>It has not been tested in a real theft.</li>
         <li>Numbers are for Kenya: Safaricom, Airtel, Telkom and six banks. Anywhere else you get the plan without numbers and are told where to find them.</li>
         <li>English only, for now. No SACCOs or mobile lenders, and no QR code on the card — the plan code is short enough to type.</li>
-        <li>The order "lock the phone before blocking the SIM" is my own reasoning from Google’s requirement that the phone be online, not a rule stated on any page I found.</li>
+        <li>The order "call the carrier first, then lock the phone" follows advice from one person at a bank or phone shop in Kenya. It is not a rule stated on any page I found. Google says the phone must be online to be locked, so once the SIM is blocked the lock may arrive only over Wi-Fi.</li>
       </ul>
 
       <h2>Your privacy</h2>
@@ -77,7 +77,7 @@ export function About() {
             <tr><th scope="col">Test</th><th scope="col">Result</th></tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Core logic (46 unit tests)</th><td>Pass, headless on Node</td></tr>
+            <tr><th scope="row">Core logic (48 unit tests)</th><td>Pass, headless on Node</td></tr>
             <tr><th scope="row">Whole loop in a browser (24 checks)</th><td>Pass in Chrome, including the offline reload and "no request left this site"</td></tr>
             <tr><th scope="row">Nothing leaves the site, live</th><td>Pass — on the deployed site, only same-origin requests appear in the Network tab</td></tr>
             <tr><th scope="row">Offline after one visit</th><td>Pass in Chrome; a service worker caches every file</td></tr>
